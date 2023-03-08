@@ -65,7 +65,7 @@ public class DetailOkController implements Action {
 		
 		likeInfo.put("memberId", memberId);
 		likeInfo.put("boardId", boardId);
-		boolean isLiked = boardFreeDAO.selectOneByBoardIdForLike(likeInfo);
+		boolean isLiked = boardFreeDAO.selectOneByBoardIdForLike(likeInfo) != null;
 		boardFreeDAO.selectAllRepliesByBoardId(boardId).stream().map(reply -> new JSONObject(reply)).forEach(replyJsons::put);
 
 		
@@ -89,6 +89,10 @@ public class DetailOkController implements Action {
 		
 //		보드 좋아요 개수
 		req.setAttribute("boardLikeCount", boardFreeDAO.getLikeCountFreeByBoardId(boardId));
+		
+//		보드 댓글 개수
+		req.setAttribute("boardReplyCount", boardFreeDAO.getReplyCountFreeByBoardId(boardId));
+		
 	}
 
 }

@@ -90,9 +90,9 @@ public class BoardFreeDAO {
 	}
 
 //	로그인한 memberId와 boardId를 이용해 좋아요, 관심 여부
-//	public BoardFreeReplyDTO selectOneByBoardIdForLike(Map<String, Long> likeInfo) {
-//		return sqlSession.selectOne("boardFree.selectOneByBoardIdForLike", likeInfo);
-//	}
+	public BoardFreeReplyDTO selectOneByBoardIdForLike(Map<String, Long> likeInfo) {
+		return sqlSession.selectOne("boardFree.selectOneByBoardIdForLike", likeInfo);
+	}
 	
 	public boolean isLikedFreeBoard(Map<String, Long> likeInfo) {
 		return sqlSession.selectOne("like.isLikedBoardFree", likeInfo) != null;
@@ -110,5 +110,8 @@ public class BoardFreeDAO {
 		return sqlSession.selectOne("like.getLikeCountFreeByBoardId", boardId);
 	}
 	
+	public Long getReplyCountFreeByBoardId(Long boardId) {
+		return sqlSession.selectOne("like.getReplyCountFreeByBoardId", boardId);
+	}
 	
 }

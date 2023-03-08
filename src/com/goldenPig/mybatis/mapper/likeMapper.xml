@@ -25,4 +25,9 @@
 		where board_id = #{boardId}
 	</select>
 	
+	<select id="getReplyCountFreeByBoardId" parameterType="long" resultType="long">
+		select count(reply_id) board_reply_count
+		from tbl_board_free_reply
+		where board_id = #{boardId}
+	</select>
 </mapper>

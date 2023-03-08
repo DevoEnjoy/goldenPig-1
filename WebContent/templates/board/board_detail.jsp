@@ -249,10 +249,13 @@
 	let memberVO = `${memberVO}`;
 	let boardInfo = `${boardInfo}`;
 	let isLogin = `${!(empty sessionScope.memberId)}`;
+	let isLiked = `${isLiked}`;
+	let boardLikeCount = `${boardLikeCount}`;
 	let memberId = `${sessioScope.memberId}`;
 	let boardId = JSON.parse(boardInfo).boardId;
 	let isBoardFree = `${boardType == 'free'}`;
 	let likeInfo = `${likeInfo}`;
+	console.log("isLiked : " + isLiked);
 	console.log("login : " + isLogin);
 	console.log("isFree : " + isBoardFree);
 	console.log("memberId : " + memberId);
