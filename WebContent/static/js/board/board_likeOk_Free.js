@@ -22,19 +22,15 @@ $likeButton.on("click", function(){
 		alert('로그인을 먼저 진행해주세요.');
 		return;
 	}*/
-	if($isBoardFree & !isLogin){
+	if($isBoardFree/* & !isLogin*/){
 		/* 자유 게시판 */
         if($likeButton.hasClass("color-blue")) {
 			buttonService.like(memberId, boardId, $isBoardFree, function(result){
 				console.log("싫어요");
-				$likeCount.val(result || $likeCount.val());
-				$likeCount.text(result || $likeCount.val());
 			})
         } else {
 			buttonService.like(memberId, boardId, $isBoardFree, function(result){
 				console.log("좋아요");
-				$likeCount.val(result);
-				$likeCount.text(result);
 			})
         }
 		

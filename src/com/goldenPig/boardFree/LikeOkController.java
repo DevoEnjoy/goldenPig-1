@@ -16,18 +16,23 @@ public class LikeOkController implements Action {
 
 	@Override
 	public Result execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
+		Result result = new Result();
+		String contextPath = req.getContextPath();
 		ajax(req, resp);
 		
 		
-		
-		return null;
+		result.setPath("/boardDetailOk.boardFree");
+		result.setRedirect(FORWORD);
+//		result.setPath(contextPath + "/boardDetailOk.boardFree");
+//		result.setRedirect(REDIRECT);
+		return result;
 	}
 	
 	public void ajax(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		BoardFreeDAO boardFreeDAO  = new BoardFreeDAO();
 		Long boardId = Long.valueOf(req.getParameter("boardId"));
 		Long memberId = Long.valueOf(req.getParameter("memberId"));
+//		Long likeCount = boardFreeDAO.getLikeCountFreeByBoardId(boardId);
 		Map<String, Long> likeInfo = new HashMap<String, Long>();
 		likeInfo.put("boardId", boardId);
 		likeInfo.put("memberId", memberId);
@@ -39,9 +44,7 @@ public class LikeOkController implements Action {
 		} else {
 			boardFreeDAO.insertLike(likeInfo);
 		}
-		
-//		boardFreeDAO.getLikeCountByBoardId(boardId);
-		
+//		req.setAttribute("likeCount", likeCount);
 	}
 
 }

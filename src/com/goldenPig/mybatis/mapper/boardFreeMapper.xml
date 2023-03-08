@@ -102,9 +102,8 @@
 	</insert>
 	
 	<select id="selectOneByBoardId" parameterType="long" resultType="boardFreeDTO">
-		select b.board_id, b.member_id, b.board_title, b.board_content, b.board_register_date
-			,b.board_update_date, b.member_nickname, c.favorite_count board_favorite_count
-			, c.reply_count board_reply_count, c.like_count board_like_count, b.board_read_count
+select b.board_id, b.member_id, b.board_title, b.board_content, b.board_register_date
+			,b.board_update_date, b.member_nickname
 		from (
 			select f.board_id, f.member_id, f.board_title, f.board_content, f.board_register_date, 
 			f.board_update_date, m.member_nickname, f.board_read_count
@@ -138,10 +137,11 @@
 		where b.board_id = #{boardId}
 	</select>
 	
-<!-- 	<select id="selectOneByBoardIdForLike" parameterType="map">
-		select like_id, member_id, board_id from tbl_board_free_like
+	<select id="selectOneByBoardIdForLike" parameterType="map" resultType="boardFreeReplyDTO">
+		select like_id, member_id, board_id
+		from tbl_board_free_like
 		where board_id = #{boardId} and member_id = #{memberId}
-	</select> -->
+	</select>
 	
 	<select id="getCurrentSequence" resultType="long">
 		select last_insert_id()

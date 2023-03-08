@@ -16,6 +16,7 @@ import com.goldenPig.Action;
 import com.goldenPig.Result;
 import com.goldenPig.boardFree.dao.BoardFreeDAO;
 import com.goldenPig.boardFree.domain.BoardFreeDTO;
+import com.goldenPig.boardFree.domain.BoardFreeReplyDTO;
 import com.goldenPig.member.dao.MemberDAO;
 import com.goldenPig.member.domain.MemberVO;
 
@@ -47,12 +48,13 @@ public class DetailOkController implements Action {
 	public void detailOk(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, JSONException {
 		BoardFreeDAO boardFreeDAO = new BoardFreeDAO();
 		MemberDAO memberDAO = new MemberDAO();
-		Long boardId = Long.parseLong(req.getParameter("boardId"));
+		String boardIdTemp = req.getParameter("boardId");
+		Long boardId = Long.parseLong(boardIdTemp == "" || boardIdTemp == null || boardIdTemp == "null" ? "" + req.getAttribute("boardId") : req.getParameter("boardId"));
 		System.out.println(boardId);
 		BoardFreeDTO dto = boardFreeDAO.selectOneByBoardId(boardId);
 		JSONArray replyJsons = new JSONArray();
 		JSONObject dtoJson = new JSONObject(dto);
-//		Map<String, Long> likeInfo = new HashMap<String, Long>();
+		Map<String, Long> likeInfo = new HashMap<String, Long>();
 		
 		Long memberId = (Long)req.getSession().getAttribute("memberId");
 		
@@ -61,9 +63,9 @@ public class DetailOkController implements Action {
 		MemberVO memberVO = memberDAO.select(memberId);
 		String memberVOJson = new JSONObject(memberVO).toString();
 		
-//		likeInfo.put("memberId", memberId);
-//		likeInfo.put("boardId", boardId);
-		
+		likeInfo.put("memberId", memberId);
+		likeInfo.put("boardId", boardId);
+		boolean isLiked = boardFreeDAO.selectOneByBoardIdForLike(likeInfo);
 		boardFreeDAO.selectAllRepliesByBoardId(boardId).stream().map(reply -> new JSONObject(reply)).forEach(replyJsons::put);
 
 		
@@ -82,7 +84,11 @@ public class DetailOkController implements Action {
 		req.setAttribute("replyDTOs", replyJsons.toString());
 		
 //		좋아요 정보
-//		req.setAttribute("likeInfo", new JSONObject(boardFreeDAO.selectOneByBoardIdForLike(likeInfo)).toString());
+//		System.out.println(likeInfoDTO);
+		req.setAttribute("isLiked", isLiked);
+		
+//		보드 좋아요 개수
+		req.setAttribute("boardLikeCount", boardFreeDAO.getLikeCountFreeByBoardId(boardId));
 	}
 
 }

@@ -192,6 +192,18 @@ public class BoardFreeReplyDTO {
 	public void setLikeId(Long likeId) {
 		this.likeId = likeId;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardFreeReplyDTO [replyId=" + replyId + ", replyContent=" + replyContent + ", replyRegisterDate="
+				+ replyRegisterDate + ", replyUpdateDate=" + replyUpdateDate + ", memberId=" + memberId + ", boardId="
+				+ boardId + ", memberEmail=" + memberEmail + ", memberPassword=" + memberPassword + ", memberName="
+				+ memberName + ", memberNickName=" + memberNickName + ", memberPhoneNumber=" + memberPhoneNumber
+				+ ", memberBirth=" + memberBirth + ", memberImgName=" + memberImgName + ", memberImgPath="
+				+ memberImgPath + ", memberGreeting=" + memberGreeting + ", boardTitle=" + boardTitle
+				+ ", boardContent=" + boardContent + ", boardRegisterDate=" + boardRegisterDate + ", boardUpdateDate="
+				+ boardUpdateDate + ", boardReadCount=" + boardReadCount + ", likeId=" + likeId + "]";
+	}
 	
 	
 	

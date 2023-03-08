@@ -20,7 +20,7 @@
 	</insert>
 	
 	<select id="getLikeCountFreeByBoardId" parameterType="long" resultType="long">
-		select count(like_id)
+		select count(like_id) board_like_count
 		from tbl_board_free_like
 		where board_id = #{boardId}
 	</select>
